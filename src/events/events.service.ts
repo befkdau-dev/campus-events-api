@@ -27,6 +27,10 @@ export class EventsService {
   }
   create(dto: CreateEventDTO): Events {
     const id = Math.max(0, ...this.repo.all().map((r) => r.id));
-    return this.repo.save({ ...dto, id });
+    return this.repo.save({
+      ...dto,
+      id,
+      isPublished: dto.isPublished ?? false,
+    });
   }
 }
