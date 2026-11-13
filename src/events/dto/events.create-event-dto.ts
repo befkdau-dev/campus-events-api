@@ -20,7 +20,7 @@ export class CreateEventDTO {
   @IsNotEmpty()
   description: string;
 
-  @IsEmpty()
+  @IsNotEmpty()
   location!: string;
 
   @IsISO8601()
