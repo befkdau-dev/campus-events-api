@@ -1,10 +1,18 @@
+export const EVENT_CATEGORIES = [
+  'technology',
+  'design',
+  'business',
+  'technology',
+] as const;
+
+export type EventCategory = (typeof EVENT_CATEGORIES)[number];
 export interface Events {
   readonly id: number;
   title: string;
   description: string;
   location: string;
   eventDate: string;
-  category: string;
+  category: EventCategory;
   isPublished: Boolean;
 }
 
