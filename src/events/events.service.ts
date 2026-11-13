@@ -12,10 +12,15 @@ export class EventsService {
   ) {}
 
   findAll(eventDate?: string): Events[] {
-    const rows = this.repo.all();
     return eventDate
-      ? rows.filter((event) => event.eventDate === eventDate)
-      : rows;
+      ? this.repo
+          .all()
+          .filter((event) =>
+            new Date(event.eventDate)
+              .toISOString()
+              .startsWith(eventDate.split('T')[0]),
+          )
+      : this.repo.all();
   }
 
   findOne(id: number): Events {
@@ -26,7 +31,7 @@ export class EventsService {
     return hit;
   }
   create(dto: CreateEventDTO): Events {
-    const id = Math.max(0, ...this.repo.all().map((r) => r.id));
+    const id = Math.max(0, ...this.repo.all().map((r) => r.id)) + 1;
     return this.repo.save({
       ...dto,
       id,
