@@ -10,5 +10,6 @@ import { InMemoryEventRepository } from './events.repository.js';
     EventsService,
     { provide: EVENT_REPOSITORY, useClass: InMemoryEventRepository },
   ],
+  exports: [EventsService],
 })
 export class EventsModule {}
