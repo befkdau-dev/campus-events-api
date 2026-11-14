@@ -3,6 +3,7 @@ import { Events } from './events.type.js';
 import { EVENT_REPOSITORY } from './events.token.js';
 import type { EventRepository } from './events.repository.js';
 import { CreateEventDTO } from './dto/events.create-event-dto.js';
+import { FilterEventDTO } from './dto/events.filter-events-dto.js';
 
 @Injectable()
 export class EventsService {
@@ -11,16 +12,30 @@ export class EventsService {
     private readonly repo: EventRepository,
   ) {}
 
-  findAll(eventDate?: string): Events[] {
-    return eventDate
-      ? this.repo
-          .all()
-          .filter((event) =>
-            new Date(event.eventDate)
-              .toISOString()
-              .startsWith(eventDate.split('T')[0]),
-          )
-      : this.repo.all();
+  findAll(filters: FilterEventDTO = {}): Events[] {
+    const { eventDate, category, location, isPublished } = filters;
+
+    return this.repo.all().filter((event) => {
+      if (
+        eventDate &&
+        !new Date(event.eventDate)
+          .toISOString()
+          .startsWith(eventDate.split('T')[0])
+      ) {
+        return false;
+      }
+      if (category && event.category !== category) {
+        return false;
+      }
+      if (location && event.location !== location) {
+        return false;
+      }
+      if (isPublished !== undefined && event.isPublished !== isPublished) {
+        return false;
+      }
+
+      return true;
+    });
   }
 
   findOne(id: number): Events {
