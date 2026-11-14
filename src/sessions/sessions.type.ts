@@ -23,9 +23,16 @@ export const SESSION_SEED: Sessions[] = [
   },
   {
     id: 3,
-    eventId: 1,
+    eventId: 2,
     title: 'Hands-On Lab: Deploying Your First App',
     startAt: '2026-12-04T11:45:00.000Z',
     endsAt: '2026-12-04T13:00:00.000Z',
+  },
+  {
+    id: 4,
+    eventId: 2,
+    title: 'Hands-On Lab: Training Your First Model',
+    startAt: '2026-12-25T11:45:00.000Z',
+    endsAt: '2026-12-25T13:00:00.000Z',
   },
 ];

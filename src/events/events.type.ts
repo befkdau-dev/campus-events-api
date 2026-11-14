@@ -60,4 +60,13 @@ export const SEED: Events[] = [
     category: 'technology',
     isPublished: true,
   },
+  {
+    id: 5,
+    title: 'Machine Learning Essentials',
+    description: 'Learn how to train Machines.',
+    location: 'ICT Center, Hall D',
+    eventDate: '2026-12-25T10:00:00.000Z',
+    category: 'technology',
+    isPublished: true,
+  },
 ];
