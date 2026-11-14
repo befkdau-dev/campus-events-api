@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { EventsService } from './events.service.js';
 import type { EventCategory } from './events.type.js';
-import type { Events } from './events.type.js';
+import type { Events, Paginated } from './events.type.js';
 import { CreateEventDTO } from './dto/events.create-event-dto.js';
 import { FilterEventDTO } from './dto/events.filter-events-dto.js';
 
@@ -19,7 +19,7 @@ export class EventsController {
   constructor(private readonly event: EventsService) {}
 
   @Get()
-  findAll(@Query() filter: FilterEventDTO): Events[] {
+  findAll(@Query() filter: FilterEventDTO): Paginated<Events> {
     return this.event.findAll(filter);
   }
   @Get(':id')

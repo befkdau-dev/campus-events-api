@@ -1,5 +1,5 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { Events } from './events.type.js';
+import { Events, Paginated } from './events.type.js';
 import { EVENT_REPOSITORY } from './events.token.js';
 import type { EventRepository } from './events.repository.js';
 import { CreateEventDTO } from './dto/events.create-event-dto.js';
@@ -12,10 +12,19 @@ export class EventsService {
     private readonly repo: EventRepository,
   ) {}
 
-  findAll(filters: FilterEventDTO = {}): Events[] {
-    const { eventDate, category, location, isPublished } = filters;
+  findAll(filters: FilterEventDTO = {}): Paginated<Events> {
+    const {
+      eventDate,
+      category,
+      location,
+      isPublished,
+      sortBy,
+      order,
+      page = 1,
+      limit = 5,
+    } = filters;
 
-    return this.repo.all().filter((event) => {
+    const filtered = this.repo.all().filter((event) => {
       if (
         eventDate &&
         !new Date(event.eventDate)
@@ -36,6 +45,25 @@ export class EventsService {
 
       return true;
     });
+    const direction = order === 'desc' ? -1 : 1;
+    const sorted = [...filtered].sort((a, b) => {
+      const result =
+        sortBy === 'eventDate'
+          ? new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime()
+          : a.title.localeCompare(b.title);
+
+      return result * direction;
+    });
+    const offset = (page - 1) * limit;
+    const items = sorted.slice(offset, offset + limit);
+
+    return {
+      items,
+      page,
+      limit,
+      total: sorted.length,
+      totalPages: Math.ceil(sorted.length / limit),
+    };
   }
 
   findOne(id: number): Events {

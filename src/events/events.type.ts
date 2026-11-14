@@ -15,6 +15,13 @@ export interface Events {
   category: EventCategory;
   isPublished: Boolean;
 }
+export interface Paginated<T> {
+  items: T[];
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+}
 
 export const SEED: Events[] = [
   {
