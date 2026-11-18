@@ -1,7 +1,15 @@
-import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  UseInterceptors,
+} from '@nestjs/common';
 import { SessionsService } from './sessions.service.js';
 import { Sessions } from './sessions.type.js';
+import { TimingInterceptor } from '../common/timing/timing.interceptor.js';
 
+UseInterceptors(TimingInterceptor);
 @Controller('events/:eventId/sessions')
 export class SessionsController {
   constructor(private readonly session: SessionsService) {}

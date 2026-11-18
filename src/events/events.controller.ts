@@ -8,6 +8,7 @@ import {
   Post,
   Body,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { EventsService } from './events.service.js';
 import type { EventCategory } from './events.type.js';
@@ -18,7 +19,9 @@ import { APIKeyGuard } from '../common/guards/api-key-guard.js';
 import { RolesGuard } from '../common/guards/role.guard.js';
 import { Role } from '../common/enums/roles.enum.js';
 import { Roles } from '../common/decorators/roles.decorater.js';
+import { TimingInterceptor } from '../common/timing/timing.interceptor.js';
 
+@UseInterceptors(TimingInterceptor)
 @Controller('events')
 //@UseGuards(APIKeyGuard, RolesGuard)
 export class EventsController {
