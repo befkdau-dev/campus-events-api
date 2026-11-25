@@ -5,5 +5,5 @@ export const config = new DocumentBuilder()
   .setVersion('1.0')
   .addTag('events', 'Events for students')
   .addTag('sessions', 'Sessions under an event')
-  .addApiKey({ type: 'apiKey', name: 'x-api-key', in: 'header' })
+  .addApiKey({ type: 'apiKey', name: 'x-api-key', in: 'header' }, 'x-api-key')
   .build();

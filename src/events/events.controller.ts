@@ -28,8 +28,8 @@ import { Role } from '../common/enums/roles.enum.js';
 import { Roles } from '../common/decorators/roles.decorater.js';
 import { TimingInterceptor } from '../common/timing/timing.interceptor.js';
 
-@ApiTags('events') // Matches .addTag('events', ...) in swagger.ts
-@ApiSecurity('x-api-key') // Enables the lock icon for your APIKeyGuard
+@ApiTags('events')
+@ApiSecurity('x-api-key')
 @UseInterceptors(TimingInterceptor)
 @Controller('events')
 //@UseGuards(APIKeyGuard, RolesGuard)

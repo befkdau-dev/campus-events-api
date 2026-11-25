@@ -8,6 +8,8 @@ import { ConfigModule } from '@nestjs/config';
 import { LoggerModule } from 'nestjs-pino';
 import { randomUUID } from 'node:crypto';
 import { LoggerMiddileware } from './common/logger/logger.middleware.js';
+import { AuthModule } from './auth/auth.module.js';
+import { UsersModule } from './users/users.module.js';
 @Module({
   imports: [
     EventsModule,
@@ -42,6 +44,8 @@ import { LoggerMiddileware } from './common/logger/logger.middleware.js';
             : undefined,
       },
     }),
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

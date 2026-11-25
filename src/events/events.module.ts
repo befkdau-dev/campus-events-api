@@ -12,7 +12,7 @@ import { RolesGuard } from '../common/guards/role.guard.js';
   providers: [
     EventsService,
     { provide: EVENT_REPOSITORY, useClass: InMemoryEventRepository },
-    { provide: APP_GUARD, useClass: APIKeyGuard },
+    // { provide: APP_GUARD, useClass: APIKeyGuard },
     { provide: APP_GUARD, useClass: RolesGuard },
   ],
   exports: [EventsService],
